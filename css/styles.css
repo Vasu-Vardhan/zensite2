@@ -38,27 +38,299 @@ body {
     transform: translateY(0);
 }
 
-/* Mobile menu */
-#mobileMenu {
-    position: fixed;
-    top: 0;
-    left: -300px;
-    width: 300px;
-    height: 100vh;
-    background: white;
-    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
-    transition: left 0.3s ease-in-out;
-    z-index: 1000;
-    padding: 1.5rem 1rem;
+/* Logo Styling */
+.logo-icon {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.logo-icon:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Install Button */
+.install-button {
+    background: linear-gradient(135deg, #e96323 0%, #ff8a3d 100%);
+    color: white;
+    font-weight: 600;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    text-decoration: none;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.install-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    background: linear-gradient(135deg, #d45a1f 0%, #f07c30 100%);
+}
+
+.install-button svg {
+    width: 1.25rem;
+    height: 1.25rem;
+}
+
+/* Zen Pro Border */
+.zen-pro-border {
+    border-color: #e96323 !important;
+}
+
+/* Payment Modal */
+#paymentModal {
+    align-items: flex-start;
+    padding: 1.5rem 0;
     overflow-y: auto;
 }
 
-#mobileMenu.open {
+#paymentModal .modal-container {
+    max-height: none;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    overflow: visible;
+    width: 100%;
+    max-width: 26rem;
+}
+
+/* Payment Tabs */
+.payment-tab {
+    flex: 1;
+    padding: 0.75rem 0.5rem;
+    text-align: center;
+    font-size: 0.875rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 2px solid transparent;
+    color: #6b7280;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    min-width: 0;
+}
+
+.payment-tab:hover {
+    color: #9333ea;
+    border-color: #a78bfa;
+}
+
+.payment-tab.active {
+    color: #9333ea;
+    border-color: #9333ea;
+}
+
+.payment-tab svg {
+    margin-right: 0.5rem;
+    flex-shrink: 0;
+}
+
+.payment-method {
+    display: none;
+    padding: 1rem 1.25rem 1.5rem;
+    animation: fadeIn 0.2s ease-out;
+}
+
+.payment-method.active {
+    display: block;
+}
+
+.form-group {
+    margin-bottom: 0.75rem;
+}
+
+.form-group label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: #4b5563;
+    margin-bottom: 0.25rem;
+}
+
+.form-group input[type="text"],
+.form-group input[type="password"],
+.form-group input[type="tel"],
+.form-group input[type="email"],
+.form-group select {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+    transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: #8b5cf6;
+    box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.2);
+}
+
+.card-fields {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+}
+
+.card-fields .form-group:first-child {
+    grid-column: 1 / -1;
+}
+
+.upi-apps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.upi-app {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 0.5rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    background: white;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+}
+
+.upi-app:hover {
+    border-color: #8b5cf6;
+    box-shadow: 0 0 0 1px #8b5cf6;
+}
+
+.upi-app svg {
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-bottom: 0.25rem;
+}
+
+.upi-app span {
+    font-size: 0.625rem;
+    color: #4b5563;
+    margin-top: 0.25rem;
+}
+
+.payment-terms {
+    margin-top: 1rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid #e5e7eb;
+}
+
+.payment-submit {
+    width: 100%;
+    margin-top: 1rem;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: white;
+    background-color: #8b5cf6;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.payment-submit:hover {
+    background-color: #7c3aed;
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+    .card-fields {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+    }
+    
+    .card-fields .form-group:first-child {
+        grid-column: 1 / -1;
+    }
+    
+    .upi-apps {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .payment-form {
+        padding: 0 1rem 1rem;
+    }
+    
+    .payment-tabs {
+        padding: 0 1rem;
+    }
+    
+    .payment-terms {
+        margin-left: -1rem;
+        margin-right: -1rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+}
+
+/* Mobile menu styles */
+#mobileMenu {
+    position: fixed;
+    top: 0;
     left: 0;
+    width: 280px;
+    height: 100% !important; /* Force height */
+    min-height: 100vh !important; /* Ensure minimum height */
+    max-height: 100% !important; /* Prevent max-height from being overridden */
+    background: white;
+    transform: translate3d(-100%, 0, 0);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1000;
+    overflow-y: auto;
+    box-shadow: 4px 0 15px rgba(0, 0, 0, 0.1);
+    padding-top: 80px;
+    will-change: transform;
+    -webkit-overflow-scrolling: touch;
+    -webkit-transform: translate3d(-100%, 0, 0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    pointer-events: none;
+    opacity: 0; /* Start hidden */
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s;
+}
+
+#mobileMenu.open {
+    transform: translate3d(0, 0, 0);
+    -webkit-transform: translate3d(0, 0, 0);
+    pointer-events: auto;
+    opacity: 1;
+    display: block !important; /* Force display block */
+}
+
+/* Prevent body scroll when menu is open */
+body.menu-open {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+}
+
+/* Menu link styles */
+#mobileMenu a {
+    display: block;
+    padding: 12px 24px;
+    color: #333;
+    text-decoration: none;
+    transition: background-color 0.2s;
+}
+
+#mobileMenu a:hover {
+    background-color: #f5f5f5;
 }
 
 .overlay {
-    display: none;
     position: fixed;
     top: 0;
     left: 0;
@@ -66,15 +338,31 @@ body {
     bottom: 0;
     background: rgba(0, 0, 0, 0.5);
     z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(2px);
+    pointer-events: none;
 }
 
 .overlay.active {
-    display: block;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
 }
 
-/* Zen Pro specific styles */
-.zen-pro-border {
-    border-color: #E96323 !important;
+/* Prevent body scroll when menu is open */
+body.menu-open {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+}
+
+/* Ensure body doesn't scroll when menu is open */
+body.menu-open {
+    overflow: hidden;
+    height: 100vh;
 }
 
 /* Backgrounds */
@@ -183,6 +471,141 @@ section {
 
 .z-1000 {
     z-index: 1000;
+}
+
+/* Enhanced Feature Cards */
+.feature-card {
+    background-color: #ffffff;
+    border-radius: 1rem;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    padding: 2rem;
+    transform: translateZ(0);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.feature-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: linear-gradient(to bottom right, var(--tw-gradient-stops));
+    opacity: 0;
+    transition-property: opacity;
+    transition-duration: 500ms;
+    z-index: 0;
+}
+
+.feature-card:hover::before {
+    opacity: 0.05;
+}
+
+.feature-card:nth-child(1)::before { background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%); }
+.feature-card:nth-child(2)::before { background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%); }
+.feature-card:nth-child(3)::before { background: linear-gradient(135deg, #10b981 0%, #14b8a6 100%); }
+.feature-card:nth-child(4)::before { background: linear-gradient(135deg, #f59e0b 0%, #f97316 100%); }
+
+.feature-icon {
+    width: 5rem;
+    height: 5rem;
+    border-radius: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.875rem;
+    margin-bottom: 1.5rem;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    z-index: 10;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    background: linear-gradient(135deg, var(--icon-color-1), var(--icon-color-2));
+}
+
+.feature-card:hover .feature-icon {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.15), 0 10px 10px -5px rgba(0, 0, 0, 0.1);
+}
+
+.feature-card h3 {
+    font-size: 1.5rem;
+    line-height: 2rem;
+    font-weight: 700;
+    color: #6e559b;
+    margin-bottom: 0.75rem;
+    text-align: center;
+    position: relative;
+    z-index: 10;
+    transition: all 0.3s ease;
+}
+
+.feature-card:hover h3 {
+    color: #4c1d95;
+    transform: translateY(-2px);
+}
+
+.feature-card p {
+    color: #4b5563;
+    text-align: center;
+    position: relative;
+    z-index: 10;
+    transition: all 0.3s ease 0.1s;
+}
+
+.feature-card:hover p {
+    color: #4b5563;
+    transform: translateY(-2px);
+}
+
+/* Add subtle floating animation to icons */
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-8px); }
+    100% { transform: translateY(0px); }
+}
+
+.feature-icon {
+    animation: float 6s ease-in-out infinite;
+}
+
+/* Add delay to each icon animation */
+.feature-card:nth-child(1) .feature-icon { animation-delay: 0s; }
+.feature-card:nth-child(2) .feature-icon { animation-delay: 0.5s; }
+.feature-card:nth-child(3) .feature-icon { animation-delay: 1s; }
+.feature-card:nth-child(4) .feature-icon { animation-delay: 1.5s; }
+
+/* Add subtle glow on hover */
+.feature-card {
+    position: relative;
+}
+
+.feature-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 1rem;
+    padding: 2px;
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.4), rgba(99, 102, 241, 0.2));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    -webkit-mask-composite: exclude;
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.feature-card:hover::after {
+    opacity: 1;
 }
 
 /* Responsive adjustments */

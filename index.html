@@ -34,12 +34,17 @@
                     <label for="loginEmail" class="block text-gray-700 text-sm font-medium mb-2">Email Address</label>
                     <input type="email" id="loginEmail" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" placeholder="your@email.com" required>
                 </div>
-                <div>
-                    <div class="flex justify-between items-center mb-2">
-                        <label for="loginPassword" class="block text-gray-700 text-sm font-medium">Password</label>
-                        <a href="#" class="text-sm text-purple-600 hover:underline">Forgot password?</a>
+                <div class="relative">
+                    <label for="loginPassword" class="block text-gray-700 text-sm font-medium mb-2">Password</label>
+                    <div class="relative">
+                        <input type="password" id="loginPassword" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" placeholder="••••••••" required>
+                        <button type="button" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 focus:outline-none">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
+                                <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd" />
+                            </svg>
+                        </button>
                     </div>
-                    <button class="absolute top-1/2 -left-4 transform -translate-y-1/2 bg-white rounded-full p-2 shadow-md hover:bg-[#e96323] hover:text-white focus:outline-none focus:ring-2 focus:ring-[#e96323] focus:ring-offset-2 transition-colors" onclick="prevSlide()">••••••••" required>
                 </div>
                 <button type="submit" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 px-4 rounded-lg shadow-md hover:shadow-lg transition duration-200">
                     Sign In
@@ -72,9 +77,17 @@
                     <label for="signupEmail" class="block text-gray-700 text-sm font-medium mb-2">Email Address</label>
                     <input type="email" id="signupEmail" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" placeholder="your@email.com" required>
                 </div>
-                <div>
+                <div class="relative">
                     <label for="signupPassword" class="block text-gray-700 text-sm font-medium mb-2">Password</label>
-                    <button class="absolute top-1/2 -right-4 transform -translate-y-1/2 bg-white rounded-full p-2 shadow-md hover:bg-[#e96323] hover:text-white focus:outline-none focus:ring-2 focus:ring-[#e96323] focus:ring-offset-2 transition-colors" onclick="nextSlide()">••••••••" required>
+                    <div class="relative">
+                        <input type="password" id="signupPassword" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" placeholder="••••••••" required>
+                        <button type="button" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 focus:outline-none">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
+                                <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                    </div>
                 </div>
                 <div class="flex items-start">
                     <div class="flex items-center h-5">
@@ -97,18 +110,287 @@
         </div>
     </div>
 
+    <!-- Payment Modal -->
+    <div id="paymentModal" class="fixed inset-0 flex items-start justify-center bg-black bg-opacity-60 z-50 hidden overflow-y-auto py-8">
+        <div class="bg-white rounded-xl shadow-2xl w-full max-w-md mx-4 relative overflow-hidden modal-container">
+            <button class="absolute top-4 right-4 text-gray-500 hover:text-gray-700 text-2xl z-10" onclick="toggleModal('paymentModal')" aria-label="Close">&times;</button>
+            
+            <!-- Plan Selection -->
+            <div class="bg-purple-700 text-white p-4 md:p-5">
+                <h2 class="text-xl md:text-2xl font-bold text-center mb-1">Complete Your Purchase</h2>
+                <div class="flex justify-center items-center space-x-2 text-sm md:text-base">
+                    <span class="bg-white/20 px-3 py-1 rounded-full">Zen Pro</span>
+                    <span>$9/month</span>
+                </div>
+            </div>
+
+            <!-- Payment Tabs -->
+            <div class="border-b border-gray-200 px-2">
+                <nav class="flex -mb-px" aria-label="Payment methods">
+                    <button type="button" class="payment-tab flex-1 py-4 px-1 text-center border-b-2 font-medium text-sm md:text-base" data-tab="card">
+                        <div class="flex items-center justify-center">
+                            <svg class="w-4 h-4 md:w-5 md:h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+                            </svg>
+                            <span>Card</span>
+                        </div>
+                    </button>
+                    <button type="button" class="payment-tab flex-1 py-4 px-1 text-center border-b-2 font-medium text-sm md:text-base" data-tab="upi">
+                        <div class="flex items-center justify-center">
+                            <svg class="w-4 h-4 md:w-5 md:h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                            </svg>
+                            <span>UPI</span>
+                        </div>
+                    </button>
+                    <button type="button" class="payment-tab flex-1 py-4 px-1 text-center border-b-2 font-medium text-sm md:text-base" data-tab="netbanking">
+                        <div class="flex items-center justify-center">
+                            <svg class="w-4 h-4 md:w-5 md:h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0 0V5m0 2v2m0 0V5m0 2h10m-10 0H8m12 0h-2" />
+                            </svg>
+                            <span>Net Banking</span>
+                        </div>
+                    </button>
+                </nav>
+            </div>
+
+            <div class="p-6">
+                <!-- Payment Forms Container -->
+                <div class="payment-forms">
+                    <!-- Card Payment Form -->
+                    <form id="cardPaymentForm" class="payment-method active" data-method="card">
+                        <div class="space-y-4">
+                            <div class="form-group">
+                                <label for="cardNumber" class="block text-sm font-medium text-gray-700 mb-1">Card Number</label>
+                                <div class="relative">
+                                    <input type="text" id="cardNumber" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500" placeholder="1234 5678 9012 3456" required>
+                                    <div class="absolute right-3 top-1/2 transform -translate-y-1/2 flex space-x-1">
+                                        <div class="w-6 h-4 rounded bg-gray-100 border border-gray-200"></div>
+                                        <div class="w-5 h-4 rounded bg-gray-100 border border-gray-200"></div>
+                                        <div class="w-4 h-4 rounded bg-gray-100 border border-gray-200"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div class="form-group">
+                                    <label for="cardName" class="block text-sm font-medium text-gray-700 mb-1">Name on Card</label>
+                                    <input type="text" id="cardName" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500" placeholder="John Doe" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="expiryDate" class="block text-sm font-medium text-gray-700 mb-1">Expiry</label>
+                                    <input type="text" id="expiryDate" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500" placeholder="MM/YY" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="cvv" class="block text-sm font-medium text-gray-700 mb-1">CVV</label>
+                                    <input type="text" id="cvv" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500" placeholder="123" required>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+                    <!-- UPI Payment Form -->
+                    <form id="upiPaymentForm" class="payment-method hidden" data-method="upi">
+                        <div class="space-y-4">
+                            <!-- UPI ID Option -->
+                            <div class="border border-gray-200 rounded-lg p-4">
+                                <div class="flex items-center mb-3">
+                                    <input type="radio" id="upiIdOption" name="upiMethod" class="h-4 w-4 text-purple-600" checked>
+                                    <label for="upiIdOption" class="ml-2 block text-sm font-medium text-gray-700">Enter UPI ID</label>
+                                </div>
+                                <div class="pl-6">
+                                    <div class="form-group">
+                                        <input type="text" id="upiId" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500" placeholder="yourname@upi" required>
+                                        <p class="text-xs text-gray-500 mt-1">e.g., 9876543210@upi or yourname@bank</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        <!-- QR Code Option -->
+                        <div class="mb-4">
+                            <div class="flex items-center mb-2">
+                                <input type="radio" id="qrCodeOption" name="upiMethod" class="h-4 w-4 text-purple-600">
+                                <label for="qrCodeOption" class="ml-2 block text-sm font-medium text-gray-700">Scan QR Code</label>
+                            </div>
+                            <div id="qrCodeContainer" class="hidden pl-6 mt-2 text-center">
+                                <div class="inline-block p-4 bg-white border border-gray-200 rounded-lg">
+                                    <div class="w-40 h-40 bg-gray-100 flex items-center justify-center mb-2">
+                                        <!-- QR Code Placeholder -->
+                                        <svg class="w-24 h-24 text-gray-400" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M4 4h7V2H2v9h2V4zm2 2h13v13H6V6zm2 2v9h9V8H8zm4 2h1v1h-1v-1zm2 0h1v1h-1v-1zm-2 2h1v1h-1v-1zm2 0h1v1h-1v-1zm-2 2h1v1h-1v-1zm2 0h1v1h-1v-1z"/>
+                                        </svg>
+                                    </div>
+                                    <p class="text-xs text-gray-600">Scan this QR code with any UPI app</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="text-center text-sm text-gray-600 mb-3">
+                            <span class="relative px-2 bg-white">or</span>
+                            <div class="h-px bg-gray-200 -mt-2.5"></div>
+                        </div>
+                        <p class="text-sm text-gray-600 mb-3">Open UPI app:</p>
+                        <div class="upi-apps">
+                            <button type="button" class="upi-app" data-app="gpay">
+                                <svg class="w-6 h-6 text-blue-500" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 22c-5.514 0-10-4.486-10-10S6.486 2 12 2s10 4.486 10 10-4.486 10-10 10zm-1-17v8h7v-2h-5V5h-2z"/>
+                                </svg>
+                                <span>Google Pay</span>
+                            </button>
+                            <button type="button" class="upi-app" data-app="phonepe">
+                                <svg class="w-6 h-6 text-purple-600" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 22c-5.514 0-10-4.486-10-10S6.486 2 12 2s10 4.486 10 10-4.486 10-10 10zm-1-17v8h7v-2h-5V5h-2z"/>
+                                </svg>
+                                <span>PhonePe</span>
+                            </button>
+                            <button type="button" class="upi-app" data-app="paytm">
+                                <svg class="w-6 h-6 text-blue-700" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 22c-5.514 0-10-4.486-10-10S6.486 2 12 2s10 4.486 10 10-4.486 10-10 10zm-1-17v8h7v-2h-5V5h-2z"/>
+                                </svg>
+                                <span>Paytm</span>
+                            </button>
+                            <button type="button" class="upi-app" data-app="bhim">
+                                <svg class="w-6 h-6 text-blue-800" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 22c-5.514 0-10-4.486-10-10S6.486 2 12 2s10 4.486 10 10-4.486 10-10 10zm-1-17v8h7v-2h-5V5h-2z"/>
+                                </svg>
+                                <span>BHIM</span>
+                            </button>
+                            <button type="button" class="upi-app" data-app="amazonpay">
+                                <svg class="w-6 h-6 text-blue-900" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 22c-5.514 0-10-4.486-10-10S6.486 2 12 2s10 4.486 10 10-4.486 10-10 10zm-1-17v8h7v-2h-5V5h-2z"/>
+                                </svg>
+                                <span>Amazon Pay</span>
+                            </button>
+                            <button type="button" class="upi-app" data-app="whatsapp">
+                                <svg class="w-6 h-6 text-green-500" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 22c-5.514 0-10-4.486-10-10S6.486 2 12 2s10 4.486 10 10-4.486 10-10 10zm-1-17v8h7v-2h-5V5h-2z"/>
+                                </svg>
+                                <span>WhatsApp</span>
+                            </button>
+                            <button type="button" class="upi-app" data-app="cred">
+                                <svg class="w-6 h-6 text-purple-800" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 22c-5.514 0-10-4.486-10-10S6.486 2 12 2s10 4.486 10 10-4.486 10-10 10zm-1-17v8h7v-2h-5V5h-2z"/>
+                                </svg>
+                                <span>CRED</span>
+                            </button>
+                            <button type="button" class="upi-app" data-app="other">
+                                <svg class="w-6 h-6 text-gray-600" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 22c-5.514 0-10-4.486-10-10S6.486 2 12 2s10 4.486 10 10-4.486 10-10 10zm-1-17v8h7v-2h-5V5h-2z"/>
+                                </svg>
+                                <span>Other UPI</span>
+                            </button>
+                        </div>
+                    </form>
+
+                    <!-- Net Banking Form -->
+                    <form id="netbankingForm" class="payment-method hidden" data-method="netbanking">
+                        <div id="submitButtonContainer" class="mt-6"></div>
+                        <!-- Quick Pay Option -->
+                        <div class="mb-4">
+                            <div class="flex items-center mb-2">
+                                <input type="radio" id="quickPayOption" name="netbankingMethod" class="h-4 w-4 text-purple-600" checked>
+                                <label for="quickPayOption" class="ml-2 block text-sm font-medium text-gray-700">Quick Pay (Recommended)</label>
+                            </div>
+                            <div class="pl-6 mt-1">
+                                <div class="form-group mb-0">
+                                    <label for="bankSelect">Select your bank</label>
+                                    <select id="bankSelect" class="w-full" required>
+                                        <option value="">-- Select your bank --</option>
+                                        <optgroup label="Popular Banks">
+                                            <option value="sbi">State Bank of India</option>
+                                            <option value="hdfc">HDFC Bank</option>
+                                            <option value="icici">ICICI Bank</option>
+                                            <option value="axis">Axis Bank</option>
+                                            <option value="kotak">Kotak Mahindra Bank</option>
+                                        </optgroup>
+                                        <optgroup label="Other Banks">
+                                            <option value="bob">Bank of Baroda</option>
+                                            <option value="pnb">Punjab National Bank</option>
+                                            <option value="yes">Yes Bank</option>
+                                            <option value="idfc">IDFC First Bank</option>
+                                            <option value="indusind">IndusInd Bank</option>
+                                        </optgroup>
+                                    </select>
+                                    <p class="text-xs text-gray-500 mt-1">You'll be securely redirected to your bank's website</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Manual Login Option -->
+                        <div class="mb-4">
+                            <div class="flex items-center mb-2">
+                                <input type="radio" id="manualLoginOption" name="netbankingMethod" class="h-4 w-4 text-purple-600">
+                                <label for="manualLoginOption" class="ml-2 block text-sm font-medium text-gray-700">Manual Login</label>
+                            </div>
+                            <div id="manualLoginContainer" class="hidden pl-6 mt-1">
+                                <div class="form-group">
+                                    <label for="netbankingUserId">Customer ID / Username</label>
+                                    <input type="text" id="netbankingUserId" placeholder="Enter your customer ID">
+                                </div>
+                                <div class="form-group">
+                                    <label for="netbankingPassword">Password</label>
+                                    <input type="password" id="netbankingPassword" placeholder="Enter your password">
+                                </div>
+                                <div class="form-group">
+                                    <label for="netbankingBank">Bank Name</label>
+                                    <select id="netbankingBank" class="w-full">
+                                        <option value="">-- Select your bank --</option>
+                                        <option value="sbi">State Bank of India</option>
+                                        <option value="hdfc">HDFC Bank</option>
+                                        <option value="icici">ICICI Bank</option>
+                                        <option value="axis">Axis Bank</option>
+                                        <option value="kotak">Kotak Mahindra Bank</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+                
+                <!-- Common Payment Footer -->
+                <div class="border-t border-gray-200 p-4 bg-gray-50 rounded-b-xl">
+                    <div class="flex items-start mb-4">
+                        <div class="flex items-center h-5">
+                            <input id="terms" type="checkbox" class="h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300 rounded" required>
+                        </div>
+                        <label for="terms" class="ml-2 block text-sm text-gray-600">
+                            I agree to the <a href="#" class="text-purple-600 hover:text-purple-800">Terms</a> and <a href="#" class="text-purple-600 hover:text-purple-800">Privacy Policy</a>
+                        </label>
+                    </div>
+                    
+                    <button type="button" id="paymentSubmit" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 px-4 rounded-lg shadow-md hover:shadow-lg transition duration-200">
+                        Pay $9.00 with Card
+                    </button>
+                    
+                    <div class="text-center mt-3">
+                        <p class="text-xs text-gray-500">
+                            <span class="inline-flex items-center justify-center">
+                                <svg class="w-3 h-3 mr-1 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
+                                </svg>
+                                Secure payment powered by Stripe
+                            </span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+
     <!-- Navigation Bar -->
     <nav class="bg-white shadow-md sticky top-0 z-40">
         <div class="container mx-auto px-3 sm:px-4">
             <div class="flex items-center justify-between h-20">
                 <!-- Mobile Menu Button + Logo -->
                 <div class="flex items-center flex-shrink-0">
-                    <button id="mobileMenuButton" class="mr-3 text-gray-700 hover:text-purple-600 text-2xl focus:outline-none md:hidden" aria-label="Toggle menu">
+                    <button id="mobileMenuButton" class="mr-3 text-gray-700 hover:text-purple-600 text-2xl focus:outline-none md:hidden" aria-label="Toggle menu" aria-expanded="false">
                         <span id="menuIcon">☰</span>
                     </button>
-                    <a href="#" class="flex items-center">
-                        <img src="https://placehold.co/40x40/6E559B/FFFFFF?text=ZS" alt="ZenStream Logo" class="rounded-full w-8 h-8 sm:w-10 sm:h-10">
-                        <span class="ml-2 text-xl sm:text-2xl font-bold primary-text whitespace-nowrap">ZenStream</span>
+                    <a href="#" class="flex items-center hover:opacity-90 transition-opacity">
+                        <img src="logo-icon.png" alt="ZenStream Logo" class="h-10 w-10 sm:h-12 sm:w-12 object-contain">
+                        <span class="ml-3 text-xl sm:text-2xl font-bold primary-text whitespace-nowrap">ZenStream</span>
                     </a>
                 </div>
                 
@@ -123,28 +405,32 @@
                 
                 <!-- Auth Buttons -->
                 <div class="flex items-center space-x-3 sm:space-x-4">
-                    <button class="bg-white border-2 border-purple-600 text-purple-600 hover:bg-purple-50 font-medium px-4 py-2 rounded-full text-xs sm:text-sm whitespace-nowrap transition-all duration-200 shadow-sm hover:shadow-md" onclick="toggleModal('loginModal')">
+                    <button type="button" class="bg-white border-2 border-purple-600 text-purple-600 hover:bg-purple-50 font-medium px-4 py-2 rounded-full text-xs sm:text-sm whitespace-nowrap transition-all duration-200 shadow-sm hover:shadow-md" onclick="toggleModal('loginModal', event)">
                         Login
                     </button>
-                    <button class="bg-purple-600 hover:bg-purple-700 text-white font-medium px-4 py-2 rounded-full text-xs sm:text-sm whitespace-nowrap transition-all duration-200 shadow-sm hover:shadow-md" onclick="toggleModal('signupModal')">
+                    <button type="button" class="bg-purple-600 hover:bg-purple-700 text-white font-medium px-4 py-2 rounded-full text-xs sm:text-sm whitespace-nowrap transition-all duration-200 shadow-sm hover:shadow-md" onclick="toggleModal('signupModal', event)">
                         Sign Up
                     </button>
                 </div>
             </div>
-
-            <!-- Overlay for mobile menu -->
-            <div id="mobileOverlay" class="overlay" onclick="closeMobileMenu()"></div>
+        </div>
             
-            <!-- Mobile Menu (Hidden by default) -->
-            <div id="mobileMenu" class="md:hidden">
-                <div class="flex flex-col h-full">
-                    <div class="flex-1 flex flex-col py-6 px-4 space-y-2">
-                        <a href="#features" class="block py-3 px-6 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors duration-200 text-base font-medium" onclick="closeMobileMenu()">Features</a>
-                        <a href="#pricing" class="block py-3 px-6 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors duration-200 text-base font-medium" onclick="closeMobileMenu()">Pricing</a>
-                        <a href="#contactForm" class="block py-3 px-6 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors duration-200 text-base font-medium" onclick="closeMobileMenu()">Contact</a>
-                    </div>
-                </div>
+        <!-- Mobile Menu (Hidden by default) -->
+        <div id="mobileMenu" class="md:hidden">
+            <div class="flex flex-col py-6 space-y-1">
+                <a href="#features" class="block py-4 px-6 text-gray-700 hover:bg-gray-100 transition-colors duration-200 text-base font-medium" onclick="closeMobileMenu()">
+                    Features
+                </a>
+                <a href="#pricing" class="block py-4 px-6 text-gray-700 hover:bg-gray-100 transition-colors duration-200 text-base font-medium" onclick="closeMobileMenu()">
+                    Pricing
+                </a>
+                <a href="#contactForm" class="block py-4 px-6 text-gray-700 hover:bg-gray-100 transition-colors duration-200 text-base font-medium" onclick="closeMobileMenu()">
+                    Contact
+                </a>
             </div>
+        </div>
+        <!-- Overlay for mobile menu -->
+        <div id="mobileOverlay" class="overlay" onclick="closeMobileMenu()"></div>
         </div>
     </nav>
 
@@ -161,13 +447,15 @@
                         <p class="text-lg sm:text-xl text-purple-100 mb-8 max-w-xl mx-auto lg:mx-0">
                             ZenStream helps you eliminate distractions and build better focus habits with powerful, easy-to-use tools.
                         </p>
-                        <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                            <a href="#pricing" class="bg-white text-[#e96323] hover:bg-[#fef3ec] font-semibold px-8 py-3 rounded-lg transition-all duration-200 transform hover:-translate-y-0.5 shadow-md hover:shadow-lg">
-                                Get Started - It's Free
+
+                        <div class="mt-8 text-center lg:text-left">
+                            <a href="#" class="install-button">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                                </svg>
+                                Install Extension
                             </a>
-                            <a href="#features" class="border-2 border-white/30 text-white hover:bg-[#e96323] hover:border-[#e96323] font-medium px-8 py-3 rounded-lg transition-all duration-200">
-                                Learn More
-                            </a>
+                            <p class="text-sm text-purple-200 mt-2">Works with Chrome, Firefox & Edge</p>
                         </div>
                         <div class="mt-8 flex items-center justify-center lg:justify-start space-x-2 text-purple-200 text-sm">
                             <div class="flex -space-x-2">
@@ -310,43 +598,53 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
                     <!-- Feature 1 -->
-                    <div class="bg-white rounded-2xl shadow-xl p-8 transform transition duration-300 hover:scale-105 group">
-                        <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-2xl flex items-center justify-center text-2xl text-white mb-6 mx-auto">
-                            🚫
+                    <div class="feature-card group" style="--icon-color-1: #8b5cf6; --icon-color-2: #6366f1;">
+                        <div class="feature-icon">
+                            <span class="text-4xl">🚫</span>
                         </div>
-                        <h3 class="text-2xl font-bold text-[#6e559b] mb-3 text-center">Smart Site Blocking</h3>
-                        <p class="text-gray-600 text-center">Block distracting websites and apps during focus sessions</p>
+                        <h3>Smart Site Blocking</h3>
+                        <p>Block distracting websites and apps during focus sessions with intelligent filtering</p>
                     </div>
 
                     <!-- Feature 2 -->
-                    <div class="bg-white rounded-2xl shadow-xl p-8 transform transition duration-300 hover:scale-105 group">
-                        <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-cyan-600 rounded-2xl flex items-center justify-center text-2xl text-white mb-6 mx-auto">
-                            ⏱️
+                    <div class="feature-card group" style="--icon-color-1: #3b82f6; --icon-color-2: #06b6d4;">
+                        <div class="feature-icon">
+                            <span class="text-4xl">⏱️</span>
                         </div>
-                        <h3 class="text-2xl font-bold text-[#6e559b] mb-3 text-center">Pomodoro Timer</h3>
-                        <p class="text-gray-600 text-center">Work in focused sprints with customizable work/break intervals</p>
+                        <h3>Pomodoro Timer</h3>
+                        <p>Work in focused sprints with customizable work/break intervals and smart notifications</p>
                     </div>
 
                     <!-- Feature 3 -->
-                    <div class="bg-white rounded-2xl shadow-xl p-8 transform transition duration-300 hover:scale-105 group">
-                        <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-teal-600 rounded-2xl flex items-center justify-center text-2xl text-white mb-6 mx-auto">
-                            🎧
+                    <div class="feature-card group" style="--icon-color-1: #10b981; --icon-color-2: #14b8a6;">
+                        <div class="feature-icon">
+                            <span class="text-4xl">🎧</span>
                         </div>
-                        <h3 class="text-2xl font-bold text-[#6e559b] mb-3 text-center">Calming Soundscapes</h3>
-                        <p class="text-gray-600 text-center">Enhance concentration with ambient sounds</p>
+                        <h3>Calming Soundscapes</h3>
+                        <p>Enhance concentration with ambient sounds designed to boost productivity</p>
                     </div>
 
                     <!-- Feature 4 -->
-                    <div class="bg-white rounded-2xl shadow-xl p-8 transform transition duration-300 hover:scale-105 group">
-                        <div class="w-16 h-16 bg-gradient-to-br from-amber-500 to-orange-600 rounded-2xl flex items-center justify-center text-2xl text-white mb-6 mx-auto">
-                            📈
+                    <div class="feature-card group" style="--icon-color-1: #f59e0b; --icon-color-2: #f97316;">
+                        <div class="feature-icon">
+                            <span class="text-4xl">📈</span>
                         </div>
-                        <h3 class="text-2xl font-bold text-[#6e559b] mb-3 text-center">Productivity Analytics</h3>
-                        <p class="text-gray-600 text-center">Track your focus time and productivity trends</p>
+                        <h3>Productivity Analytics</h3>
+                        <p>Track your focus time, productivity trends, and improvement over time</p>
                     </div>
                 </div>
-
-                <!-- CTA removed as per user request -->
+                
+                <!-- Install Extension CTA -->
+                <div class="col-span-full text-center mt-12">
+                    <h3 class="text-2xl md:text-3xl font-bold text-white mb-6">Ready to boost your productivity?</h3>
+                    <a href="#" class="install-button inline-flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-5 h-5 mr-2">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                        </svg>
+                        Install ZenStream Now
+                    </a>
+                    <p class="text-purple-100 mt-3 text-sm">Takes less than 30 seconds • Used by 50,000+ professionals</p>
+                </div>
             </div>
         </section>
 
@@ -426,7 +724,7 @@
                             <li class="flex items-center"><span class="accent-text text-xl mr-3">&#10003;</span> Whitelist & Exceptions</li>
                             <li class="flex items-center"><span class="accent-text text-xl mr-3">&#10003;</span> Cross-Device Sync</li>
                         </ul>
-                        <button class="btn-primary w-full text-lg py-3">Choose Zen Pro</button>
+                        <button class="btn-primary w-full text-lg py-3" onclick="toggleModal('paymentModal')">Choose Zen Pro</button>
                     </div>
                 </div>
                 <p class="mt-12 text-lg md:text-xl text-white opacity-90">
@@ -480,6 +778,50 @@
                         <button class="w-3 h-3 rounded-full bg-gray-300 hover:bg-primary transition-colors duration-200 testimonial-indicator active" aria-label="Go to testimonial 1"></button>
                         <button class="w-3 h-3 rounded-full bg-gray-300 hover:bg-primary transition-colors duration-200 testimonial-indicator" aria-label="Go to testimonial 2"></button>
                         <button class="w-3 h-3 rounded-full bg-gray-300 hover:bg-primary transition-colors duration-200 testimonial-indicator" aria-label="Go to testimonial 3"></button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Final CTA Section -->
+        <section class="py-20 md:py-28 bg-gradient-to-r from-purple-700 to-purple-900 text-white text-center">
+            <div class="container mx-auto px-6 sm:px-8 md:px-10">
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">Ready to Transform Your Productivity?</h2>
+                <p class="text-xl md:text-2xl text-purple-100 mb-10 max-w-3xl mx-auto">Join thousands of professionals who have already boosted their focus with ZenStream</p>
+                <div class="flex flex-col sm:flex-row justify-center gap-6 items-center">
+                    <a href="#" class="install-button text-lg px-8 py-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6 mr-2">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                        </svg>
+                        Install ZenStream Now - It's Free
+                    </a>
+                    <div class="flex items-center mt-4 sm:mt-0">
+                        <div class="flex -space-x-2">
+                            <img class="w-10 h-10 rounded-full border-2 border-white" src="https://randomuser.me/api/portraits/women/44.jpg" alt="User">
+                            <img class="w-10 h-10 rounded-full border-2 border-white" src="https://randomuser.me/api/portraits/men/32.jpg" alt="User">
+                            <img class="w-10 h-10 rounded-full border-2 border-white" src="https://randomuser.me/api/portraits/women/68.jpg" alt="User">
+                        </div>
+                        <p class="ml-3 text-purple-200 text-sm font-medium">Join <span class="font-bold">50,000+</span> focused users</p>
+                    </div>
+                </div>
+                <div class="mt-8 flex flex-wrap justify-center gap-4 text-purple-200 text-sm">
+                    <div class="flex items-center">
+                        <svg class="w-5 h-5 mr-1 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                        </svg>
+                        No credit card required
+                    </div>
+                    <div class="flex items-center">
+                        <svg class="w-5 h-5 mr-1 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                        </svg>
+                        Works on all devices
+                    </div>
+                    <div class="flex items-center">
+                        <svg class="w-5 h-5 mr-1 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                        </svg>
+                        30-day money-back guarantee
                     </div>
                 </div>
             </div>
