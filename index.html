@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ZenStream helps you achieve laser focus by blocking distractions and creating the perfect work environment. Try it today!">
+    <title>ZenStream - Master Your Focus, Drown Out Distractions</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://placehold.co/32x32/6E559B/FFFFFF?text=ZS">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="overflow-x-hidden">
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60 z-50 hidden">
+        <div class="bg-white p-8 rounded-xl shadow-2xl max-w-md w-full mx-4 relative">
+            <button class="absolute top-4 right-4 text-gray-500 hover:text-gray-700 text-2xl" onclick="toggleModal('loginModal')">&times;</button>
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold primary-text mb-2">Welcome Back</h2>
+                <p class="text-gray-600">Sign in to continue to ZenStream</p>
+            </div>
+
+            <form class="space-y-6">
+                <div>
+                    <label for="loginEmail" class="block text-gray-700 text-sm font-medium mb-2">Email Address</label>
+                    <input type="email" id="loginEmail" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" placeholder="your@email.com" required>
+                </div>
+                <div>
+                    <div class="flex justify-between items-center mb-2">
+                        <label for="loginPassword" class="block text-gray-700 text-sm font-medium">Password</label>
+                        <a href="#" class="text-sm text-purple-600 hover:underline">Forgot password?</a>
+                    </div>
+                    <button class="absolute top-1/2 -left-4 transform -translate-y-1/2 bg-white rounded-full p-2 shadow-md hover:bg-[#e96323] hover:text-white focus:outline-none focus:ring-2 focus:ring-[#e96323] focus:ring-offset-2 transition-colors" onclick="prevSlide()">••••••••" required>
+                </div>
+                <button type="submit" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 px-4 rounded-lg shadow-md hover:shadow-lg transition duration-200">
+                    Sign In
+                </button>
+            </form>
+
+            <div class="mt-6 text-center">
+                <p class="text-gray-600">Don't have an account? 
+                    <a href="#" class="text-purple-600 font-semibold hover:underline" onclick="toggleModal('loginModal'); toggleModal('signupModal')">Sign up</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sign Up Modal -->
+    <div id="signupModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60 z-50 hidden">
+        <div class="bg-white p-8 rounded-xl shadow-2xl max-w-md w-full mx-4 relative">
+            <button class="absolute top-4 right-4 text-gray-500 hover:text-gray-700 text-2xl" onclick="toggleModal('signupModal')">&times;</button>
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold primary-text mb-2">Get Started</h2>
+                <p class="text-gray-600">Create your ZenStream account</p>
+            </div>
+
+            <form class="space-y-6">
+                <div>
+                    <label for="signupName" class="block text-gray-700 text-sm font-medium mb-2">Full Name</label>
+                    <input type="text" id="signupName" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" placeholder="John Doe" required>
+                </div>
+                <div>
+                    <label for="signupEmail" class="block text-gray-700 text-sm font-medium mb-2">Email Address</label>
+                    <input type="email" id="signupEmail" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" placeholder="your@email.com" required>
+                </div>
+                <div>
+                    <label for="signupPassword" class="block text-gray-700 text-sm font-medium mb-2">Password</label>
+                    <button class="absolute top-1/2 -right-4 transform -translate-y-1/2 bg-white rounded-full p-2 shadow-md hover:bg-[#e96323] hover:text-white focus:outline-none focus:ring-2 focus:ring-[#e96323] focus:ring-offset-2 transition-colors" onclick="nextSlide()">••••••••" required>
+                </div>
+                <div class="flex items-start">
+                    <div class="flex items-center h-5">
+                        <input id="terms" type="checkbox" class="h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300 rounded" required>
+                    </div>
+                    <div class="ml-3 text-sm">
+                        <label for="terms" class="text-gray-600">I agree to the <a href="#" class="text-purple-600 hover:underline">Terms of Service</a> and <a href="#" class="text-purple-600 hover:underline">Privacy Policy</a></label>
+                    </div>
+                </div>
+                <button type="submit" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 px-4 rounded-lg shadow-md hover:shadow-lg transition duration-200">
+                    Create Account
+                </button>
+            </form>
+
+            <div class="mt-6 text-center">
+                <p class="text-gray-600">Already have an account? 
+                    <a href="#" class="text-purple-600 font-semibold hover:underline" onclick="toggleModal('signupModal'); toggleModal('loginModal')">Sign in</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation Bar -->
+    <nav class="bg-white shadow-md sticky top-0 z-40">
+        <div class="container mx-auto px-3 sm:px-4">
+            <div class="flex items-center justify-between h-20">
+                <!-- Mobile Menu Button + Logo -->
+                <div class="flex items-center flex-shrink-0">
+                    <button id="mobileMenuButton" class="mr-3 text-gray-700 hover:text-purple-600 text-2xl focus:outline-none md:hidden" aria-label="Toggle menu">
+                        <span id="menuIcon">☰</span>
+                    </button>
+                    <a href="#" class="flex items-center">
+                        <img src="https://placehold.co/40x40/6E559B/FFFFFF?text=ZS" alt="ZenStream Logo" class="rounded-full w-8 h-8 sm:w-10 sm:h-10">
+                        <span class="ml-2 text-xl sm:text-2xl font-bold primary-text whitespace-nowrap">ZenStream</span>
+                    </a>
+                </div>
+                
+                <!-- Desktop Navigation Links (Center) -->
+                <div class="hidden md:flex items-center justify-center flex-1">
+                    <nav class="flex items-center gap-x-2 sm:gap-x-4 lg:gap-x-8">
+                        <a href="#features" class="px-3 py-2 text-sm sm:text-base text-gray-700 hover:text-purple-600 font-medium transition-colors duration-200">Features</a>
+                        <a href="#pricing" class="px-3 py-2 text-sm sm:text-base text-gray-700 hover:text-purple-600 font-medium transition-colors duration-200">Pricing</a>
+                        <a href="#contactForm" class="px-3 py-2 text-sm sm:text-base text-gray-700 hover:text-purple-600 font-medium transition-colors duration-200">Contact</a>
+                    </nav>
+                </div>
+                
+                <!-- Auth Buttons -->
+                <div class="flex items-center space-x-3 sm:space-x-4">
+                    <button class="bg-white border-2 border-purple-600 text-purple-600 hover:bg-purple-50 font-medium px-4 py-2 rounded-full text-xs sm:text-sm whitespace-nowrap transition-all duration-200 shadow-sm hover:shadow-md" onclick="toggleModal('loginModal')">
+                        Login
+                    </button>
+                    <button class="bg-purple-600 hover:bg-purple-700 text-white font-medium px-4 py-2 rounded-full text-xs sm:text-sm whitespace-nowrap transition-all duration-200 shadow-sm hover:shadow-md" onclick="toggleModal('signupModal')">
+                        Sign Up
+                    </button>
+                </div>
+            </div>
+
+            <!-- Overlay for mobile menu -->
+            <div id="mobileOverlay" class="overlay" onclick="closeMobileMenu()"></div>
+            
+            <!-- Mobile Menu (Hidden by default) -->
+            <div id="mobileMenu" class="md:hidden">
+                <div class="flex flex-col h-full">
+                    <div class="flex-1 flex flex-col py-6 px-4 space-y-2">
+                        <a href="#features" class="block py-3 px-6 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors duration-200 text-base font-medium" onclick="closeMobileMenu()">Features</a>
+                        <a href="#pricing" class="block py-3 px-6 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors duration-200 text-base font-medium" onclick="closeMobileMenu()">Pricing</a>
+                        <a href="#contactForm" class="block py-3 px-6 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors duration-200 text-base font-medium" onclick="closeMobileMenu()">Contact</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Hero Section - Redesigned -->
+        <section id="hero" class="bg-gradient-to-br from-purple-700 to-purple-900 text-white py-16 md:py-24 lg:py-32 relative overflow-hidden">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+                <div class="grid lg:grid-cols-2 gap-12 lg:gap-8 items-center">
+                    <!-- Content -->
+                    <div class="text-center lg:text-left">
+                        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6 max-w-2xl mx-auto lg:mx-0">
+                            Focus Better, <span class="text-[#e96323]">Achieve More</span>
+                        </h1>
+                        <p class="text-lg sm:text-xl text-purple-100 mb-8 max-w-xl mx-auto lg:mx-0">
+                            ZenStream helps you eliminate distractions and build better focus habits with powerful, easy-to-use tools.
+                        </p>
+                        <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                            <a href="#pricing" class="bg-white text-[#e96323] hover:bg-[#fef3ec] font-semibold px-8 py-3 rounded-lg transition-all duration-200 transform hover:-translate-y-0.5 shadow-md hover:shadow-lg">
+                                Get Started - It's Free
+                            </a>
+                            <a href="#features" class="border-2 border-white/30 text-white hover:bg-[#e96323] hover:border-[#e96323] font-medium px-8 py-3 rounded-lg transition-all duration-200">
+                                Learn More
+                            </a>
+                        </div>
+                        <div class="mt-8 flex items-center justify-center lg:justify-start space-x-2 text-purple-200 text-sm">
+                            <div class="flex -space-x-2">
+                                <img class="w-8 h-8 rounded-full border-2 border-white" src="https://randomuser.me/api/portraits/women/44.jpg" alt="User">
+                                <img class="w-8 h-8 rounded-full border-2 border-white" src="https://randomuser.me/api/portraits/men/32.jpg" alt="User">
+                                <img class="w-8 h-8 rounded-full border-2 border-white" src="https://randomuser.me/api/portraits/women/68.jpg" alt="User">
+                            </div>
+                            <span>Join 10,000+ focused users</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Image -->
+                    <div class="relative">
+                        <div class="relative z-10 bg-white/10 backdrop-blur-sm p-1 rounded-2xl shadow-2xl">
+                            <img 
+                                src="https://placehold.co/600x400/6E559B/FFFFFF?text=ZenStream+App" 
+                                alt="ZenStream App Interface" 
+                                class="rounded-xl w-full h-auto shadow-lg"
+                                loading="lazy"
+                            >
+                        </div>
+                        <!-- Decorative elements -->
+                        <div class="absolute -top-6 -right-6 w-32 h-32 bg-purple-400 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob"></div>
+                        <div class="absolute -bottom-8 -left-8 w-40 h-40 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-2000"></div>
+                    </div>
+                </div>
+            </div>
+            <!-- Background elements -->
+            <div class="absolute inset-0 bg-grid-white/5"></div>
+        </section>
+        
+        <!-- Digital Distractions are Everywhere Section -->
+        <section class="py-16 md:py-24 bg-gray-50 animate-fade-in">
+            <div class="container mx-auto px-6 sm:px-8 md:px-10">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-bold primary-text mb-4">
+                        Digital Distractions are Everywhere
+                    </h2>
+                    <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                        In today's hyper-connected world, notifications, social media, and endless tabs constantly pull you away from what truly matters.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                    <!-- Card 1 -->
+                    <div class="group relative overflow-hidden rounded-2xl bg-white shadow-xl transition-all duration-500 hover:shadow-2xl">
+                        <div class="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-indigo-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        <div class="relative p-8 z-10">
+                            <div class="w-16 h-16 rounded-2xl bg-purple-100 flex items-center justify-center mb-6 group-hover:bg-purple-200 transition-colors duration-300">
+                                <i class="fas fa-clock text-3xl text-purple-600"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold text-gray-800 mb-4">2.5 Hours Daily</h3>
+                            <p class="text-gray-600 mb-6">The average person spends 2.5 hours daily on social media, adding up to 5 years and 4 months over a lifetime.</p>
+                            <div class="w-full h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                                <div class="h-full bg-gradient-to-r from-purple-400 to-purple-600 rounded-full transition-all duration-1000 group-hover:w-full w-4/5"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="group relative overflow-hidden rounded-2xl bg-white shadow-xl transition-all duration-500 hover:shadow-2xl">
+                        <div class="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-cyan-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        <div class="relative p-8 z-10">
+                            <div class="w-16 h-16 rounded-2xl bg-blue-100 flex items-center justify-center mb-6 group-hover:bg-blue-200 transition-colors duration-300">
+                                <i class="fas fa-bell text-3xl text-blue-600"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold text-gray-800 mb-4">80+ Daily Notifications</h3>
+                            <p class="text-gray-600 mb-6">The average smartphone user receives 63.5 daily notifications, leading to constant task-switching and reduced productivity.</p>
+                            <div class="w-full h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                                <div class="h-full bg-gradient-to-r from-blue-400 to-blue-600 rounded-full transition-all duration-1000 group-hover:w-full w-3/4"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="group relative overflow-hidden rounded-2xl bg-white shadow-xl transition-all duration-500 hover:shadow-2xl">
+                        <div class="absolute inset-0 bg-gradient-to-br from-amber-500/5 to-orange-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        <div class="relative p-8 z-10">
+                            <div class="w-16 h-16 rounded-2xl bg-amber-100 flex items-center justify-center mb-6 group-hover:bg-amber-200 transition-colors duration-300">
+                                <i class="fas fa-brain text-3xl text-amber-600"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold text-gray-800 mb-4">23 Minutes to Refocus</h3>
+                            <p class="text-gray-600 mb-6">After an interruption, it takes an average of 23 minutes to return to the original task with full focus.</p>
+                            <div class="w-full h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                                <div class="h-full bg-gradient-to-r from-amber-400 to-amber-600 rounded-full transition-all duration-1000 group-hover:w-full w-2/5"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Digital Distractions Stats - Redesigned -->
+                <div class="max-w-6xl mx-auto mt-12">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <!-- Stat 1 -->
+                        <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                            <div class="flex flex-col items-center text-center">
+                                <div class="w-16 h-16 rounded-full bg-[#e96323]/10 flex items-center justify-center mb-4">
+                                    <i class="fas fa-mobile-alt text-2xl text-[#e96323]"></i>
+                                </div>
+                                <h3 class="text-3xl font-bold text-gray-800 mb-1">58x</h3>
+                                <p class="text-gray-600 text-sm font-medium">Daily Phone Checks</p>
+                                <div class="w-12 h-1 bg-purple-500 rounded-full mt-4"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- Stat 2 -->
+                        <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                            <div class="flex flex-col items-center text-center">
+                                <div class="w-16 h-16 rounded-full bg-blue-100 flex items-center justify-center mb-4">
+                                    <i class="fas fa-tasks text-2xl text-[#e96323]"></i>
+                                </div>
+                                <h3 class="text-3xl font-bold text-gray-800 mb-1">40%</h3>
+                                <p class="text-gray-600 text-sm font-medium">Productivity Loss</p>
+                                <div class="w-12 h-1 bg-blue-500 rounded-full mt-4"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- Stat 3 -->
+                        <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                            <div class="flex flex-col items-center text-center">
+                                <div class="w-16 h-16 rounded-full bg-amber-100 flex items-center justify-center mb-4">
+                                    <i class="fas fa-moon text-2xl text-[#e96323]"></i>
+                                </div>
+                                <h3 class="text-3xl font-bold text-gray-800 mb-1">90%</h3>
+                                <p class="text-gray-600 text-sm font-medium">Experience Sleep Disruption</p>
+                                <div class="w-12 h-1 bg-amber-500 rounded-full mt-4"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Features Section -->
+        <section id="features" class="py-20 md:py-28 relative overflow-hidden" style="background-color: #6e559b;">
+            <div class="container mx-auto px-6 sm:px-8 md:px-10">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-bold text-white/95 mb-6">Designed for <span class="accent-text">Maximum Focus</span></h2>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+                    <!-- Feature 1 -->
+                    <div class="bg-white rounded-2xl shadow-xl p-8 transform transition duration-300 hover:scale-105 group">
+                        <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-2xl flex items-center justify-center text-2xl text-white mb-6 mx-auto">
+                            🚫
+                        </div>
+                        <h3 class="text-2xl font-bold text-[#6e559b] mb-3 text-center">Smart Site Blocking</h3>
+                        <p class="text-gray-600 text-center">Block distracting websites and apps during focus sessions</p>
+                    </div>
+
+                    <!-- Feature 2 -->
+                    <div class="bg-white rounded-2xl shadow-xl p-8 transform transition duration-300 hover:scale-105 group">
+                        <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-cyan-600 rounded-2xl flex items-center justify-center text-2xl text-white mb-6 mx-auto">
+                            ⏱️
+                        </div>
+                        <h3 class="text-2xl font-bold text-[#6e559b] mb-3 text-center">Pomodoro Timer</h3>
+                        <p class="text-gray-600 text-center">Work in focused sprints with customizable work/break intervals</p>
+                    </div>
+
+                    <!-- Feature 3 -->
+                    <div class="bg-white rounded-2xl shadow-xl p-8 transform transition duration-300 hover:scale-105 group">
+                        <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-teal-600 rounded-2xl flex items-center justify-center text-2xl text-white mb-6 mx-auto">
+                            🎧
+                        </div>
+                        <h3 class="text-2xl font-bold text-[#6e559b] mb-3 text-center">Calming Soundscapes</h3>
+                        <p class="text-gray-600 text-center">Enhance concentration with ambient sounds</p>
+                    </div>
+
+                    <!-- Feature 4 -->
+                    <div class="bg-white rounded-2xl shadow-xl p-8 transform transition duration-300 hover:scale-105 group">
+                        <div class="w-16 h-16 bg-gradient-to-br from-amber-500 to-orange-600 rounded-2xl flex items-center justify-center text-2xl text-white mb-6 mx-auto">
+                            📈
+                        </div>
+                        <h3 class="text-2xl font-bold text-[#6e559b] mb-3 text-center">Productivity Analytics</h3>
+                        <p class="text-gray-600 text-center">Track your focus time and productivity trends</p>
+                    </div>
+                </div>
+
+                <!-- CTA removed as per user request -->
+            </div>
+        </section>
+
+        <!-- How it works Section -->
+        <section class="py-16 md:py-24 bg-gray-50 animate-fade-in">
+            <div class="container mx-auto px-6 sm:px-8 md:px-10 text-center">
+                <h2 class="text-4xl md:text-5xl font-bold primary-text mb-12">Achieve Focus in 3 Simple Steps</h2>
+                <p class="text-lg md:text-xl mb-12 opacity-90">Choose the plan that empowers your productivity.</p>
+
+                <div class="flex flex-col lg:flex-row justify-center items-stretch gap-10">
+                    <!-- Step 1 -->
+                    <div class="flex-1 bg-white rounded-lg shadow-xl p-8 flex flex-col secondary-text transform transition duration-300 hover:scale-105">
+                        <div class="secondary-bg text-white text-4xl font-extrabold rounded-full w-20 h-20 flex items-center justify-center mb-6 shadow-md mx-auto">1</div>
+                        <!-- Image: A hand installing a browser extension icon into a browser bar -->
+                        <img src="https://placehold.co/200x150/C9C0DB/6E559B?text=Extension+Install" alt="Install ZenStream" class="mb-6 rounded-lg">
+                        <h3 class="text-2xl font-bold primary-text mb-4">Install the Extension</h3>
+                        <p class="text-gray-700 text-lg flex-grow">Add ZenStream to your browser in seconds. It's lightweight and easy to set up.</p>
+                    </div>
+                    <!-- Step 2 -->
+                    <div class="flex-1 bg-white rounded-lg shadow-xl p-8 flex flex-col secondary-text transform transition duration-300 hover:scale-105">
+                        <div class="secondary-bg text-white text-4xl font-extrabold rounded-full w-20 h-20 flex items-center justify-center mb-6 shadow-md mx-auto">2</div>
+                        <!-- Image: A gear icon floating above a customizable dashboard interface -->
+                        <img src="https://placehold.co/200x150/C9C0DB/6E559B?text=Settings+Customization" alt="Customize Settings" class="mb-6 rounded-lg">
+                        <h3 class="text-2xl font-bold primary-text mb-4">Customize Your Sessions</h3>
+                        <p class="text-gray-700 text-lg flex-grow">Set your preferred focus time, blocklist, and ambient sounds to create your ideal work environment.</p>
+                    </div>
+                    <!-- Step 3 -->
+                    <div class="flex-1 bg-white rounded-lg shadow-xl p-8 flex flex-col secondary-text transform transition duration-300 hover:scale-105">
+                        <div class="secondary-bg text-white text-4xl font-extrabold rounded-full w-20 h-20 flex items-center justify-center mb-6 shadow-md mx-auto">3</div>
+                        <!-- Image: A serene icon of a brain with radiating lines, symbolizing clear focus -->
+                        <img src="https://placehold.co/200x150/C9C0DB/6E559B?text=Achieve+Focus" alt="Start Focusing" class="mb-6 rounded-lg">
+                        <h3 class="text-2xl font-bold primary-text mb-4">Start Your Focus Journey</h3>
+                        <p class="text-gray-700 text-lg flex-grow">Click "Start Session" and experience uninterrupted productivity. Reclaim your time, achieve your goals.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Simple Pricing Section -->
+        <section id="pricing" class="py-16 md:py-24 primary-bg text-white animate-fade-in">
+            <div class="container mx-auto px-6 sm:px-8 md:px-10 text-center">
+                <h2 class="text-4xl md:text-5xl font-bold mb-8">Invest in Your Focus. Invest in Yourself.</h2>
+                <p class="text-lg md:text-xl mb-12 opacity-90">Choose the plan that empowers your productivity.</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch justify-center max-w-4xl mx-auto">
+                    <!-- Basic Plan -->
+                    <div class="bg-white rounded-xl shadow-2xl p-8 flex flex-col secondary-text transform transition duration-300 hover:scale-105">
+                        <h3 class="text-3xl font-bold primary-text mb-4">Zen Starter</h3>
+                        <p class="text-gray-600 text-lg mb-6">Perfect for occasional focus needs.</p>
+                        <div class="mb-8">
+                            <span class="text-5xl font-extrabold primary-text">$0</span>
+                            <span class="text-gray-600 text-xl">/month</span>
+                        </div>
+                        <ul class="text-gray-700 text-left space-y-3 mb-10 flex-grow">
+                            <li class="flex items-center"><span class="accent-text text-xl mr-3">&#10003;</span> Basic Site Blocking</li>
+                            <li class="flex items-center"><span class="accent-text text-xl mr-3">&#10003;</span> Standard Pomodoro</li>
+                            <li class="flex items-center"><span class="accent-text text-xl mr-3">&#10003;</span> 1 Ambient Sound</li>
+                            <li class="flex items-center"><span class="accent-text text-xl mr-3">&#10003;</span> Limited Analytics</li>
+                        </ul>
+                        <button class="btn-primary w-full text-lg py-3">Get Started (Free)</button>
+                    </div>
+
+                    <!-- Pro Plan (Most Popular) -->
+                    <div class="bg-white rounded-xl shadow-2xl p-8 flex flex-col secondary-text border-4 zen-pro-border relative transform transition duration-300 scale-105 hover:scale-110">
+                        <div class="absolute -top-4 left-1/2 -translate-x-1/2 most-popular-badge text-white text-sm font-semibold px-4 py-1 rounded-full shadow-md">MOST POPULAR</div>
+                        <h3 class="text-3xl font-bold primary-text mb-4">Zen Pro</h3>
+                        <p class="text-gray-600 text-lg mb-6">For serious productivity enthusiasts.</p>
+                        <div class="mb-8">
+                            <span class="text-5xl font-extrabold primary-text">$9</span>
+                            <span class="text-gray-600 text-xl">/month</span>
+                        </div>
+                        <ul class="text-gray-700 text-left space-y-3 mb-10 flex-grow">
+                            <li class="flex items-center"><span class="accent-text text-xl mr-3">&#10003;</span> Advanced Site Blocking</li>
+                            <li class="flex items-center"><span class="accent-text text-xl mr-3">&#10003;</span> Customizable Pomodoro</li>
+                            <li class="flex items-center"><span class="accent-text text-xl mr-3">&#10003;</span> Full Soundscape Library</li>
+                            <li class="flex items-center"><span class="accent-text text-xl mr-3">&#10003;</span> Detailed Performance Analytics</li>
+                            <li class="flex items-center"><span class="accent-text text-xl mr-3">&#10003;</span> Whitelist & Exceptions</li>
+                            <li class="flex items-center"><span class="accent-text text-xl mr-3">&#10003;</span> Cross-Device Sync</li>
+                        </ul>
+                        <button class="btn-primary w-full text-lg py-3">Choose Zen Pro</button>
+                    </div>
+                </div>
+                <p class="mt-12 text-lg md:text-xl text-white opacity-90">
+                    Still unsure? All paid plans come with a <strong class="accent-text">30-Day Money-Back Guarantee!</strong>
+                </p>
+                <p class="mt-4 text-sm text-white opacity-80">
+                    Cancel anytime. No questions asked. Your satisfaction is our priority.
+                </p>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section id="testimonials" class="py-16 md:py-24 bg-gray-50 animate-fade-in">
+            <div class="container mx-auto px-6 sm:px-8 md:px-10 text-center">
+                <h2 class="text-4xl md:text-5xl font-bold primary-text mb-12">Hear From Our Focused Users</h2>
+                
+                <!-- Testimonials Carousel -->
+                <div class="relative max-w-4xl mx-auto">
+                    <!-- Carousel Container -->
+                    <div class="relative overflow-hidden w-full">
+                        <div id="testimonialCarousel" class="flex transition-transform duration-700 ease-in-out">
+                            <!-- Testimonial 1 -->
+                            <div class="w-full flex-shrink-0">
+                                <div class="bg-white rounded-xl shadow-[0_10px_25px_-5px_rgba(0,0,0,0.1),0_10px_10px_-5px_rgba(0,0,0,0.04)] p-8 flex flex-col items-center text-center mx-2 my-4">
+                                    <img src="https://placehold.co/80x80/C9C0DB/6E559B?text=JD" alt="User Avatar: Jane Doe" class="rounded-full mb-6 border-4 border-secondary-bg">
+                                    <p class="text-gray-700 text-lg italic mb-6">"ZenStream has completely transformed my workday. I used to spend hours aimlessly browsing, now I consistently hit my productivity goals. The Pomodoro timer and site blocking are game-changers!"</p>
+                                    <p class="font-bold primary-text text-xl">- Jane Doe, Marketing Manager</p>
+                                </div>
+                            </div>
+                            <!-- Testimonial 2 -->
+                            <div class="w-full flex-shrink-0">
+                                <div class="bg-white rounded-xl shadow-[0_10px_25px_-5px_rgba(0,0,0,0.1),0_10px_10px_-5px_rgba(0,0,0,0.04)] p-8 flex flex-col items-center text-center mx-2 my-4">
+                                    <img src="https://placehold.co/80x80/C9C0DB/6E559B?text=SA" alt="User Avatar: Sarah A." class="rounded-full mb-6 border-4 border-secondary-bg">
+                                    <p class="text-gray-700 text-lg italic mb-6">"As a student, distractions are my biggest enemy. ZenStream's ambient sounds create a perfect study environment, and blocking social media during my study blocks has seriously boosted my grades."</p>
+                                    <p class="font-bold primary-text text-xl">- Sarah A., University Student</p>
+                                </div>
+                            </div>
+                            <!-- Testimonial 3 -->
+                            <div class="w-full flex-shrink-0">
+                                <div class="bg-white rounded-xl shadow-[0_10px_25px_-5px_rgba(0,0,0,0.1),0_10px_10px_-5px_rgba(0,0,0,0.04)] p-8 flex flex-col items-center text-center mx-2 my-4">
+                                    <img src="https://placehold.co/80x80/C9C0DB/6E559B?text=MK" alt="User Avatar: Michael K." class="rounded-full mb-6 border-4 border-secondary-bg">
+                                    <p class="text-gray-700 text-lg italic mb-6">"I was skeptical at first, but ZenStream delivers. The analytics feature showed me exactly where I was losing time, and now I can maintain deep focus for hours. Worth every penny!"</p>
+                                    <p class="font-bold primary-text text-xl">- Michael K., Freelance Developer</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Indicators -->
+                    <div class="flex justify-center mt-8 space-x-2">
+                        <button class="w-3 h-3 rounded-full bg-gray-300 hover:bg-primary transition-colors duration-200 testimonial-indicator active" aria-label="Go to testimonial 1"></button>
+                        <button class="w-3 h-3 rounded-full bg-gray-300 hover:bg-primary transition-colors duration-200 testimonial-indicator" aria-label="Go to testimonial 2"></button>
+                        <button class="w-3 h-3 rounded-full bg-gray-300 hover:bg-primary transition-colors duration-200 testimonial-indicator" aria-label="Go to testimonial 3"></button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <style>
+            /* Custom styles for the carousel */
+            #testimonialCarousel {
+                display: flex;
+                width: 100%;
+            }
+            
+            #testimonialCarousel > div {
+                width: 100%;
+                flex-shrink: 0;
+                padding: 0 1rem;
+                box-sizing: border-box;
+            }
+            
+            .carousel-container {
+                position: relative;
+                width: 100%;
+                overflow: hidden;
+            }
+            
+            .testimonial-indicator.active {
+                background-color: #6e559b;
+            }
+        </style>
+        
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const carousel = document.getElementById('testimonialCarousel');
+                const prevBtn = document.getElementById('prevTestimonial');
+                const nextBtn = document.getElementById('nextTestimonial');
+                const indicators = document.querySelectorAll('.testimonial-indicator');
+                let currentIndex = 0;
+                const totalTestimonials = document.querySelectorAll('#testimonialCarousel > div').length;
+                let autoSlideInterval;
+                
+                // Set initial position
+                updateCarousel();
+                
+                // Auto slide every 5 seconds with improved reliability
+                function startAutoSlide() {
+                    // Clear any existing interval to prevent duplicates
+                    if (autoSlideInterval) {
+                        clearInterval(autoSlideInterval);
+                    }
+                    autoSlideInterval = setInterval(() => {
+                        currentIndex = (currentIndex + 1) % totalTestimonials;
+                        updateCarousel();
+                    }, 5000);
+                }
+                
+                // Pause auto slide on hover
+                carousel.parentElement.addEventListener('mouseenter', () => {
+                    clearInterval(autoSlideInterval);
+                });
+                
+                // Resume auto slide when mouse leaves
+                carousel.parentElement.addEventListener('mouseleave', startAutoSlide);
+                
+                // Auto slide functionality only - no click handlers needed for navigation buttons
+                
+                // Auto slide only - no touch support needed
+                
+                function updateCarousel() {
+                    // Update carousel position with right-to-left slide
+                    const container = carousel.parentElement;
+                    const containerWidth = container.offsetWidth;
+                    const translateX = -currentIndex * containerWidth;
+                    carousel.style.transform = `translateX(${translateX}px)`;
+                    
+                    // Update indicators
+                    indicators.forEach((indicator, index) => {
+                        if (index === currentIndex) {
+                            indicator.classList.add('active');
+                            indicator.setAttribute('aria-current', 'true');
+                        } else {
+                            indicator.classList.remove('active');
+                            indicator.removeAttribute('aria-current');
+                        }
+                    });
+                    
+                    // Reset auto-slide timer
+                    clearInterval(autoSlideInterval);
+                    startAutoSlide();
+                }
+                
+                // Start auto-sliding
+                startAutoSlide();
+                
+                // Pause auto-slide when window loses focus
+                window.addEventListener('blur', () => clearInterval(autoSlideInterval));
+                window.addEventListener('focus', startAutoSlide);
+            });
+        </script>
+
+        <!-- Need Help? Contact Form Section -->
+        <section id="contactForm" class="py-16 md:py-24 primary-bg text-white animate-fade-in">
+            <div class="container mx-auto px-4 text-center max-w-2xl">
+                <h2 class="text-4xl md:text-5xl font-bold mb-8">Need Help? Get in Touch!</h2>
+                <p class="text-lg md:text-xl mb-12 opacity-90">
+                    Have questions, feedback, or need support? Fill out the form below, and we'll get back to you as soon as possible.
+                </p>
+
+                <form class="bg-white p-8 rounded-xl shadow-2xl text-left">
+                    <div class="mb-6">
+                        <label for="contactName" class="block text-gray-700 text-sm font-bold mb-2">Your Name</label>
+                        <input type="text" id="contactName" class="shadow appearance-none border rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-purple-300" placeholder="John Doe" required>
+                    </div>
+                    <div class="mb-6">
+                        <label for="contactEmail" class="block text-gray-700 text-sm font-bold mb-2">Your Email</label>
+                        <input type="email" id="contactEmail" class="shadow appearance-none border rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-purple-300" placeholder="your@email.com" required>
+                    </div>
+                    <div class="mb-8">
+                        <label for="contactMessage" class="block text-gray-700 text-sm font-bold mb-2">Your Message</label>
+                        <textarea id="contactMessage" rows="6" class="shadow appearance-none border rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-purple-300" placeholder="Tell us how we can help..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn-primary w-full text-lg py-3">Send Message</button>
+                </form>
+                <p class="text-white mt-8 opacity-80 text-sm">We value your privacy. Your information will not be shared.</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="primary-bg py-10 text-white text-center">
+        <div class="container mx-auto px-6 sm:px-8 md:px-10">
+            <p class="text-lg">&copy; 2023 ZenStream. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Modal functionality
+        function toggleModal(modalId) {
+            // Close any open modals first
+            document.querySelectorAll('[id$="Modal"]').forEach(modal => {
+                if (!modal.classList.contains('hidden') && modal.id !== modalId) {
+                    modal.classList.add('hidden');
+                }
+            });
+            
+            // Toggle the requested modal
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.toggle('hidden');
+                document.body.style.overflow = modal.classList.contains('hidden') ? '' : 'hidden';
+            }
+        }
+
+        // Mobile menu functionality
+        document.addEventListener('DOMContentLoaded', () => {
+            const mobileMenu = document.getElementById('mobileMenu');
+            const mobileMenuButton = document.getElementById('mobileMenuButton');
+            const menuIcon = document.getElementById('menuIcon');
+            
+            // Close menu when clicking outside
+            document.addEventListener('click', (e) => {
+                const isClickInsideMenu = mobileMenu.contains(e.target) || mobileMenuButton.contains(e.target);
+                if (!isClickInsideMenu && mobileMenu.classList.contains('open')) {
+                    closeMobileMenu();
+                }
+            });
+
+            // Toggle menu when clicking the button
+            mobileMenuButton.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (mobileMenu.classList.contains('open')) {
+                    closeMobileMenu();
+                } else {
+                    openMobileMenu();
+                }
+            });
+
+            // Close menu when clicking on a link
+            document.querySelectorAll('#mobileMenu a, #mobileMenu button').forEach(item => {
+                item.addEventListener('click', () => {
+                    closeMobileMenu();
+                });
+            });
+
+            function openMobileMenu() {
+                mobileMenu.classList.add('open');
+                document.getElementById('mobileOverlay').classList.add('active');
+                document.body.style.overflow = 'hidden'; // Prevent scrolling when menu is open
+            }
+
+            function closeMobileMenu() {
+                mobileMenu.classList.remove('open');
+                document.getElementById('mobileOverlay').classList.remove('active');
+                document.body.style.overflow = ''; // Re-enable scrolling
+            }
+
+            // Expose functions to global scope for inline handlers
+            window.toggleMobileMenu = () => {
+                if (mobileMenu.classList.contains('open')) {
+                    closeMobileMenu();
+                } else {
+                    openMobileMenu();
+                }
+            };
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href !== '#' && href !== '') {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        // Close mobile menu if open
+                        const mobileMenu = document.getElementById('mobileMenu');
+                        if (mobileMenu && mobileMenu.style.maxHeight && mobileMenu.style.maxHeight !== '0px') {
+                            toggleMobileMenu();
+                        }
+                        
+                        // Scroll to target with offset for fixed header
+                        const headerOffset = 80;
+                        const elementPosition = target.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: 'smooth'
+                        });
+
+                        // Update URL without adding to history
+                        history.pushState(null, null, href);
+                    }
+                }
+
+
+                // Close mobile menu if open (duplicate check removed)
+                const mobileMenu = document.getElementById('mobileMenu');
+                if (mobileMenu && mobileMenu.classList.contains('open')) {
+                    mobileMenu.classList.remove('open');
+                    mobileMenu.style.maxHeight = '0px';
+                }
+            });
+        });
+
+        // Intersection Observer for fade-in animations
+        document.addEventListener('DOMContentLoaded', () => {
+            const animatedElements = document.querySelectorAll('.animate-fade-in');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                    }
+                });
+            }, {
+                threshold: 0.1 // Trigger when 10% of the element is visible
+            });
+
+            animatedElements.forEach(element => {
+                observer.observe(element);
+            });
+        });
+    </script>
+</body>
+</html>
