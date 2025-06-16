@@ -73,20 +73,30 @@ document.addEventListener('DOMContentLoaded', () => {
         'You have 3 new notifications'
     ];
     
-    // Initialize Intersection Observer
+    // Initialize Intersection Observer with better mobile support
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                isSectionVisible = true;
-                startFocusMeter();
-                startDistractions();
-            } else {
-                isSectionVisible = false;
-                stopFocusMeter();
-                clearDistractions();
-            }
+            // Use requestAnimationFrame for better performance
+            requestAnimationFrame(() => {
+                if (entry.isIntersecting || entry.intersectionRatio > 0) {
+                    if (!isSectionVisible) {
+                        isSectionVisible = true;
+                        startFocusMeter();
+                        startDistractions();
+                    }
+                } else {
+                    if (isSectionVisible) {
+                        isSectionVisible = false;
+                        stopFocusMeter();
+                        clearDistractions();
+                    }
+                }
+            });
         });
-    }, { threshold: 0.5 });
+    }, { 
+        threshold: 0.1, // Lower threshold for mobile
+        rootMargin: '0px 0px -50% 0px' // Trigger when 50% of the element is in view
+    });
     
     // Start observing the section
     if (digitalDistractionsSection) {
@@ -95,14 +105,35 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Focus meter functions
     function startFocusMeter() {
+        // Reset focus level and update display
         focusLevel = 0;
         updateFocusMeter();
-        focusInterval = setInterval(() => {
-            if (focusLevel < 100) {
-                focusLevel += 0.5;
-                updateFocusMeter();
+        
+        // Use requestAnimationFrame for smoother animation on mobile
+        let lastUpdate = performance.now();
+        const updateInterval = 50; // Update every 50ms for smoother animation
+        
+        const animate = (timestamp) => {
+            if (!isSectionVisible) return;
+            
+            const delta = timestamp - lastUpdate;
+            if (delta >= updateInterval) {
+                if (focusLevel < 100) {
+                    focusLevel += 0.25; // Slower increment for better visibility
+                    updateFocusMeter();
+                } else {
+                    return; // Stop animation when full
+                }
+                lastUpdate = timestamp - (delta % updateInterval);
             }
-        }, 100);
+            
+            if (focusLevel < 100) {
+                requestAnimationFrame(animate);
+            }
+        };
+        
+        // Start the animation
+        requestAnimationFrame(animate);
     }
     
     function stopFocusMeter() {
@@ -156,8 +187,15 @@ document.addEventListener('DOMContentLoaded', () => {
     function showNotification() {
         if (activeDistractions >= maxDistractions) return;
         
+        // Check if section is still visible before showing notification
+        if (!isSectionVisible) return;
+        
         const notification = notifications[Math.floor(Math.random() * notifications.length)];
         const message = notification.messages[Math.floor(Math.random() * notification.messages.length)];
+        
+        // Adjust max distractions based on screen size
+        const maxOnScreen = window.innerWidth < 768 ? 2 : maxDistractions;
+        if (activeDistractions >= maxOnScreen) return;
         
         const notificationEl = document.createElement('div');
         notificationEl.className = 'notification';
